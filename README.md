@@ -32,7 +32,7 @@ of CUPID to robomimic's Diffusion Policy.
 |---|---|
 | `curaeval/metrics/` | the demonstration scores |
 | `curaeval/data.py` | reading robomimic demonstrations; reading and writing selection masks |
-| `curaeval/stats.py` | seed-level intervals, Welch tests, Holm correction |
+| `curaeval/stats.py` | Welch tests over training seeds, Holm correction |
 | `scripts/` | selection masks, training (Diffusion Policy, BC-RNN), log parsing, comparison |
 | `cluster/` | Slurm templates for masks, training, evaluation and CUPID scoring |
 | `cupid_port/` | CUPID influence scores for robomimic Diffusion Policy checkpoints ([README](cupid_port/README.md)) |
@@ -65,7 +65,7 @@ bash scripts/download_data.sh          # -> data/robomimic/<task>/mh/low_dim_v14
 
 | key | name | score | source |
 |---|---|---|---|
-| `psd` | PSD | total spectral power of the end-effector position | Sojib et al., arXiv:2605.01544 |
+| `psd` | PSD | power spectral density of the end-effector position, summed over all frequencies | Sojib et al., arXiv:2605.01544 |
 | `psdvel` | Velocity-PSD | the same score on end-effector velocity | variant of PSD |
 | `sal` | SAL | RINSE spectral arc length | Kulkarni et al., arXiv:2604.23000 |
 | `geomloo` | HG-WT (LOO) | leave-one-out contribution to the geometric entropy H_G | Luo et al., arXiv:2606.20871, with our leave-one-out wrapper |
@@ -186,6 +186,12 @@ Diffusion Policy on square, can and transport (Tables 1 and 2 of the paper):
 </p>
 <p align="center">
   <img src="assets/table_can_transport.png" width="80%" alt="Table 2: Diffusion Policy on can and transport">
+</p>
+
+The same comparison under the initial and the updated evaluation protocol (Table 3 of the paper):
+
+<p align="center">
+  <img src="assets/table_protocol.png" width="80%" alt="Table 3: Protocol sensitivity on square">
 </p>
 
 Demonstrations kept at 25% retention on square: the median-length

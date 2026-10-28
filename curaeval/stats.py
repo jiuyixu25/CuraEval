@@ -2,13 +2,9 @@
 
 The unit of analysis is the training seed: rollouts of one trained policy are
 not independent samples of what a selection does, so every comparison uses
-per-seed success rates.
-
-* cell means carry a Student-t 95% interval over training seeds;
-* differences use two-sided Welch t tests and Welch 95% intervals;
-* Holm's step-down correction is applied within a fixed family of comparisons.
-
-Intervals are pointwise and unclipped; they are not simultaneous intervals.
+per-seed success rates. Differences are tested with two-sided Welch t tests,
+and Holm's step-down correction is applied within a fixed family of
+comparisons.
 """
 from __future__ import annotations
 
@@ -20,20 +16,16 @@ from scipy import stats
 
 
 def summarize(values):
-    """Mean over training seeds with a Student-t 95% interval.
+    """Mean and standard deviation over training seeds.
 
     ``values`` maps training seed to success rate.
     """
     a = np.asarray(list(values.values()), dtype=float)
-    n = len(a)
-    mean = float(a.mean())
-    sd = float(a.std(ddof=1))
-    half = float(stats.t.ppf(.975, n - 1) * sd / math.sqrt(n))
-    return {"n": n, "mean": mean, "sd": sd, "ci95_low": mean - half, "ci95_high": mean + half}
+    return {"n": len(a), "mean": float(a.mean()), "sd": float(a.std(ddof=1))}
 
 
 def welch(a, b):
-    """Two-sided Welch comparison of the mean of ``a`` minus the mean of ``b``."""
+    """Two-sided Welch test of the mean of ``a`` minus the mean of ``b``."""
     x = np.array(list(a.values()), dtype=float)
     y = np.array(list(b.values()), dtype=float)
     vx = float(np.var(x, ddof=1) / len(x))
@@ -45,9 +37,7 @@ def welch(a, b):
     df = (vx + vy) ** 2 / (vx ** 2 / (len(x) - 1) + vy ** 2 / (len(y) - 1))
     t = delta / se
     p = float(2 * stats.t.sf(abs(t), df))
-    half = float(stats.t.ppf(.975, df) * se)
-    return {"delta": delta, "ci95_low": delta - half, "ci95_high": delta + half,
-            "p_raw": p, "standard_error": se, "welch_df": df,
+    return {"delta": delta, "p_raw": p, "standard_error": se, "welch_df": df,
             "n_condition": len(x), "n_control": len(y)}
 
 

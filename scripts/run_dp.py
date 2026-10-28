@@ -58,7 +58,7 @@ def main():
     c.lock()
 
     # All runs of one comparison should use one GPU type; --fast then only adds
-    # numerical noise that the across-seed intervals absorb.
+    # numerical noise, small next to the variation across training seeds.
     if a.fast:
         torch.backends.cudnn.benchmark = True
         torch.backends.cuda.matmul.allow_tf32 = True

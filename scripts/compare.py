@@ -28,8 +28,7 @@ from curaeval.stats import fmt, holm, p_text, summarize, welch  # noqa: E402
 RUN = re.compile(r"(dp|bc)_(can|square|transport)_(.+)_seed(\d+)")
 RANDOM = re.compile(r"random_(\d+)_s(\d+)")
 SUBSET = re.compile(r"(.+)_(\d+)")
-FIELDS = ["n_control", "delta", "ci95_low", "ci95_high", "p_raw", "p_holm",
-          "family_size", "welch_df"]
+FIELDS = ["n_control", "delta", "p_raw", "p_holm", "family_size", "welch_df"]
 
 
 def read_runs(paths):
@@ -127,8 +126,7 @@ def main():
         for c in sorted(cells.values(), key=order):
             r = {"policy": policy, "task": task, "filter_key": c["key"], "score": c["score"],
                  "retention": c["retention"], "family": c["family"], "n": c["n"],
-                 "success": c["mean"], "success_sd": c["sd"],
-                 "success_ci95_low": c["ci95_low"], "success_ci95_high": c["ci95_high"]}
+                 "success": c["mean"], "success_sd": c["sd"]}
             for family in ("vs_random", "vs_all"):
                 d = c.get(family) or {}
                 r.update({f"{family}_{f}": d.get(f, "") for f in FIELDS})
