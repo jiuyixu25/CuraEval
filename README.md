@@ -2,6 +2,10 @@
 
 # CuraEval: Evaluating Demonstration Curation on Mixed-Skill Robot Data
 
+Jiuyi Xu<sup>1</sup>, Meida Chen<sup>2</sup>, Yang Ye<sup>3</sup>, Yangming Shi<sup>1</sup>
+
+<sup>1</sup>Colorado School of Mines &nbsp; <sup>2</sup>University of Southern California - Institute for Creative Technologies &nbsp; <sup>3</sup>Northeastern University
+
 **CoRL 2026 Workshop "Oops, I Erred"**
 
 </div>
