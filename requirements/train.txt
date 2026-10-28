@@ -1,0 +1,15 @@
+# Training and evaluation (Diffusion Policy, BC-RNN) and the CUPID port.
+# Python 3.10. Install a CUDA build of PyTorch 2.x for your GPU first, e.g.
+#   pip install torch --index-url https://download.pytorch.org/whl/cu124
+# The paper's training runs installed robomimic from the upstream main branch on
+# 2026-07-21 (version string 0.5.0; it includes the PR #251 fix to the Diffusion
+# Policy train config that the v0.5.0 tag lacks). The CUPID port was verified
+# against commit d309eaec (2026-08-09), pinned below; the Diffusion Policy code
+# these scripts use is identical in the two. diffusers is pinned by robomimic.
+-r core.txt
+robomimic @ git+https://github.com/ARISE-Initiative/robomimic.git@d309eaecc18acf4152a830a895a6984b8ac71b05
+robosuite==1.4.1
+mujoco==2.3.7
+egl_probe
+tqdm
+imageio

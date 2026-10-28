@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv*/
+venv/
+
+# datasets and run artefacts (see README: Data)
+data/
+logs/
+cluster/env.sh
+cluster/manifest*.txt
+cluster/reeval*.txt
